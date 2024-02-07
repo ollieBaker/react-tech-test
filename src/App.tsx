@@ -1,7 +1,16 @@
 import './App.css';
 
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
+import Beers from './views/Beers';
+import BeerDetail from './views/BeerDetail';
 import { getBeersByPage, getBeerById } from './api/punk';
+import ErrorBoundary from './components/ErrorBoundary';
+
+const ErrorLayout = () => (
+  <ErrorBoundary>
+    <Outlet />
+  </ErrorBoundary>
+);
 
 const PageNotFound = () => (
   <main>
@@ -12,27 +21,26 @@ const PageNotFound = () => (
   </main>
 );
 
-const stubPage = (
-  <main>
-    <h1>stub page</h1>
-  </main>
-);
-
 function App() {
   const router = createBrowserRouter([
     {
-      path: '/',
-      element: stubPage,
-      loader: () => getBeersByPage({ page: 1 }),
-    },
-    {
-      path: 'beer/:beerId',
-      element: stubPage,
-      loader: ({ params }) => getBeerById({ id: params.beerId }),
-    },
-    {
-      path: '*',
-      element: <PageNotFound />,
+      element: <ErrorLayout />,
+      children: [
+        {
+          path: '/',
+          element: <Beers />,
+          loader: () => getBeersByPage({ page: 1 }),
+        },
+        {
+          path: 'beer/:beerId',
+          element: <BeerDetail />,
+          loader: ({ params }) => getBeerById({ id: params.beerId }),
+        },
+        {
+          path: '*',
+          element: <PageNotFound />,
+        },
+      ],
     },
   ]);
 
