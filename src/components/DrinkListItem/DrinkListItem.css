@@ -3,12 +3,25 @@
   background-color: var(--color-block);
   cursor: pointer;
 
-  &:hover {
-    .drink-list-item__image {
-      background-color: var(--color-accent);
+  @media (pointer: fine) {
+    &:hover {
+      .drink-list-item__image {
+        background-color: var(--color-accent);
+      }
+      .drink-list-item__container {
+        border-bottom: 2px solid var(--color-accent);
+      }
     }
-    .drink-list-item__container {
-      border-bottom: 2px solid var(--color-accent);
+  }
+
+  :active {
+    &:hover {
+      .drink-list-item__image {
+        background-color: var(--color-accent);
+      }
+      .drink-list-item__container {
+        border-bottom: 2px solid var(--color-accent);
+      }
     }
   }
 
@@ -18,8 +31,9 @@
 
   .drink-list-item__container {
     display: flex;
-    gap: 1rem;
+    gap: 0.5rem;
     border-bottom: 2px solid var(--color-black);
+    transition: border-bottom 0.5s ease;
   }
 
   .drink-list-item__details {
@@ -28,6 +42,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    padding: 0.5rem;
   }
 
   .drink-list-item__image {
@@ -36,6 +51,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: background-color 0.5s ease;
   }
 
   .drink-list-item__img {

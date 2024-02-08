@@ -50,6 +50,7 @@ h2 {
 h2 {
   font-size: 1.25rem;
 }
+
 @media (min-width: 431px) {
   h2 {
     font-size: 1.5rem;

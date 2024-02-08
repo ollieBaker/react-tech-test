@@ -33,7 +33,7 @@ export default function Drinks() {
 
   return (
     <main>
-      <h1>Beer App</h1>
+      <h1>Punk API</h1>
       <DrinkList drinkData={beers} path="beer" />
       {beerRemaining ? (
         <p>
