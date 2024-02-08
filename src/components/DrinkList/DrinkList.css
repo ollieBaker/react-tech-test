@@ -1,0 +1,8 @@
+.drink-list {
+  .drink-list__list {
+    list-style: none;
+    text-align: left;
+    color: white;
+    padding-left: 0;
+  }
+}

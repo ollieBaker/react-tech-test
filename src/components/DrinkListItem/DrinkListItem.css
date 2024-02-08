@@ -1,0 +1,60 @@
+.drink-list-item {
+  margin-bottom: 1rem;
+  background-color: var(--color-block);
+  cursor: pointer;
+
+  &:hover {
+    .drink-list-item__image {
+      background-color: var(--color-accent);
+    }
+    .drink-list-item__container {
+      border-bottom: 2px solid var(--color-accent);
+    }
+  }
+
+  .drink-list-item__link {
+    color: var(--color-black);
+  }
+
+  .drink-list-item__container {
+    display: flex;
+    gap: 1rem;
+    border-bottom: 2px solid var(--color-black);
+  }
+
+  .drink-list-item__details {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .drink-list-item__image {
+    padding: 0.5rem 0.5rem;
+    min-width: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .drink-list-item__img {
+    display: block;
+    max-height: 65px;
+  }
+
+  .drink-list-item__description {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 0;
+    font-size: 14px;
+  }
+
+  .drink-list-item__name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 0;
+  }
+}

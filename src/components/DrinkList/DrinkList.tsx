@@ -1,5 +1,6 @@
-import { IDrinkListItem } from '../types/types';
-import DrinkItem from './DrinkListItem';
+import { IDrinkListItem } from '../../types/types';
+import DrinkItem from '../DrinkListItem/DrinkListItem';
+import './DrinkList.css';
 
 export default function DrinkList({
   drinkData,
