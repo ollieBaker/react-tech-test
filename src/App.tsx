@@ -1,6 +1,11 @@
 import './App.css';
 
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  Outlet,
+  RouterProvider,
+  defer,
+} from 'react-router-dom';
 import Beers from './views/Beers';
 import BeerDetail from './views/BeerDetail';
 import { getBeersByPage, getBeerById } from './api/punk';
@@ -29,7 +34,12 @@ function App() {
         {
           path: '/',
           element: <Beers />,
-          loader: () => getBeersByPage({ page: 1 }),
+          async loader() {
+            const byPagePromise = getBeersByPage({ page: 1 });
+            return defer({
+              beers: byPagePromise,
+            });
+          },
         },
         {
           path: 'beer/:beerId',

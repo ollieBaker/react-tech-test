@@ -1,4 +1,6 @@
 .drink-list {
+  width: 1200px;
+  max-width: 100%;
   .drink-list__list {
     list-style: none;
     text-align: left;

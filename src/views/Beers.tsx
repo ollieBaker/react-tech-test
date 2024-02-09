@@ -1,14 +1,14 @@
 import { BeerObject } from '../types/types';
 import DrinkList from '../components/DrinkList/DrinkList.js';
-import { useLoaderData } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { Await, useLoaderData } from 'react-router-dom';
+import { Suspense, useEffect, useState } from 'react';
 import { getBeersByPage } from '../api/punk';
 
 export default function Drinks() {
-  const initialBeers = useLoaderData() as BeerObject[];
+  const loaderData = useLoaderData() as { beers: Promise<BeerObject[]> };
 
   const [page, setPage] = useState(1);
-  const [beers, setBeers] = useState(initialBeers);
+  const [newBeers, setNewBeers] = useState([]);
   const [isLoading, setisLoading] = useState(false);
   const [beerRemaining, setBeerRemaining] = useState(true);
 
@@ -22,7 +22,7 @@ export default function Drinks() {
         setisLoading(true);
         const data = await getBeersByPage({ page });
         if (!data.length || data.length < 10) setBeerRemaining(false);
-        setBeers([...beers, ...data]);
+        setNewBeers([...data]);
         setisLoading(false);
       }
     };
@@ -34,17 +34,23 @@ export default function Drinks() {
   return (
     <main>
       <h1>Punk API</h1>
-      <DrinkList drinkData={beers} path="beer" />
-      {beerRemaining ? (
-        <p>
-          Thirsty?{' '}
-          <button disabled={isLoading} onClick={loadMoreBeer}>
-            Get more beer here!
-          </button>
-        </p>
-      ) : (
-        <p>You drunk the bar dry!</p>
-      )}
+      <Suspense fallback={<p>Hang tight, your beers are pouring...</p>}>
+        <Await resolve={loaderData.beers}>
+          {(beers) => (
+            <DrinkList drinkData={[...beers, ...newBeers]} path="beer" />
+          )}
+        </Await>
+        {beerRemaining ? (
+          <p>
+            Thirsty?{' '}
+            <button disabled={isLoading} onClick={loadMoreBeer}>
+              Get more beer here!
+            </button>
+          </p>
+        ) : (
+          <p>You drunk the bar dry!</p>
+        )}
+      </Suspense>
     </main>
   );
 }
