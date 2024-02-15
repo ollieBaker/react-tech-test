@@ -22,7 +22,7 @@ export default function Drinks() {
         setisLoading(true);
         const data = await getBeersByPage({ page });
         if (!data.length || data.length < 10) setBeerRemaining(false);
-        setNewBeers([...data]);
+        setNewBeers([...newBeers, ...data]);
         setisLoading(false);
       }
     };
